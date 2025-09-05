@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>【店名】— 日本一おいしいカフェオレ</title>
+  <meta name="description" content="日本一おいしいカフェオレのお店【店名】の公式サイト。最新情報、メニュー、写真、レビュー、アクセス。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --coffee:#5c3d2e;       /* メイン（濃いブラウン） */
+      --latte:#c8a97e;        /* アクセント（ラテ色） */
+      --cream:#f6f1e9;        /* 背景（クリーム） */
+      --ink:#14110f;          /* テキスト */
+      --line:#e6dfd6;         /* 罫線 */
+      --ok:#1e9d6f;           /* 営業中ラベル */
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family:"Noto Sans JP", system-ui, -apple-system, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Yu Gothic", Meiryo, sans-serif;
+      color:var(--ink);
+      background:var(--cream);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    .container{max-width:720px;margin:0 auto;padding:0 16px;}
+    .hero{position:relative;min-height:52vh;display:grid;place-items:end center;background:
+      radial-gradient(120% 60% at 50% 40%, rgba(255,255,255,.0) 0 55%, rgba(0,0,0,.45) 56%),
+      url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800"><defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="%23f3e9dc"/><stop offset="1" stop-color="%23e7d8c3"/></linearGradient></defs><rect fill="url(%23g)" width="100%" height="100%"/><g opacity="0.25" fill="%23d2b48c"><circle cx="150" cy="200" r="120"/><circle cx="500" cy="130" r="90"/><circle cx="980" cy="300" r="150"/><circle cx="250" cy="600" r="140"/></g></svg>') center/cover no-repeat;
+      border-bottom:1px solid var(--line);
+    }
+    .hero-inner{width:100%;padding:24px 16px 28px;box-sizing:border-box;}
+    .badge{display:inline-block;background:rgba(255,255,255,.85);color:var(--coffee);border:1px solid var(--line);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.06em;margin-bottom:8px;}
+    .storename{font-size:28px;margin:0 0 4px;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.35);}
+    .catch{font-size:14px;margin:0 0 14px;color:#fff;opacity:.95;}
+    .cta-row{display:flex;gap:10px;}
+    .btn{appearance:none;border:none;background:var(--coffee);color:#fff;padding:12px 16px;border-radius:14px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:8px;box-shadow:0 6px 18px rgba(92,61,46,.25);}    
+    .btn.outline{background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.8);backdrop-filter:blur(4px)}
+    .icon{width:18px;height:18px;display:inline-block}
+
+    /* タブナビ（NEW / MENU / PHOTO / REVIEW） */
+    .tabnav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);} 
+    .tabnav-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:12px 16px;}
+    .tabnav a{display:block;text-align:center;padding:10px 8px;border-radius:12px;background:#fff;border:1px solid var(--line);font-weight:700;color:var(--coffee);text-decoration:none;}
+    .tabnav a:active{transform:scale(.98)}
+
+    /* セクション共通 */
+    section{padding:22px 0;}
+    section h2{font-size:18px;margin:0 0 10px;color:var(--coffee);} 
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,.04);padding:14px;}
+    .media{display:grid;grid-template-columns:1fr;gap:12px;}
+    .media img{width:100%;height:220px;object-fit:cover;border-radius:12px;background:#eee;}
+    .kebab{color:#8a7b6d;font-size:13px;margin-bottom:8px}
+
+    /* お知らせ */
+    .newslist{list-style:none;margin:8px 0 0;padding:0;}
+    .newslist li{display:flex;gap:10px;align-items:flex-start;padding:12px 6px;border-top:1px dashed var(--line);} 
+    .newslist time{min-width:64px;font-size:12px;color:#6c6259}
+    .newslist .tag{font-size:10px;background:var(--latte);color:#fff;border-radius:999px;padding:2px 6px;margin-left:4px}
+
+    /* メニュー */
+    .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+    .menu-item{background:linear-gradient(#fff,#fff) padding-box, linear-gradient(120deg,#f0e7da,#e5d7c4) border-box;border:1px solid transparent;border-radius:14px;padding:10px}
+    .menu-item h3{font-size:15px;margin:2px 0}
+    .menu-item p{font-size:12px;margin:0;color:#645a51}
+    .price{font-weight:700;color:var(--coffee);}
+
+    /* 写真（横スクロール） */
+    .gallery{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:4px}
+    .gallery img{width:72vw;max-width:420px;height:220px;object-fit:cover;border-radius:14px;scroll-snap-align:start;flex:0 0 auto;background:#eee}
+
+    /* オーナー */
+    .owner{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start}
+    .owner .avatar{width:96px;height:96px;border-radius:14px;object-fit:cover;background:#f0f0f0}
+    .owner small{color:#6c6259}
+
+    /* アクセス */
+    .map{height:260px;border:0;border-radius:14px;width:100%;}
+    .info{margin:10px 0 0;padding:0;list-style:none}
+    .info li{display:flex;gap:10px;padding:10px 4px;border-top:1px dashed var(--line)}
+    .info b{min-width:82px;display:inline-block;color:#6b5d51}
+    .sns{display:flex;gap:8px;margin-top:8px}
+    .qr{width:84px;height:84px;border:1px dashed var(--line);border-radius:12px;display:grid;place-items:center;color:#8a7b6d;font-size:12px}
+
+    /* 下部固定CTA */
+    .stickycta{position:sticky;bottom:0;background:#fff;border-top:1px solid var(--line);padding:10px 16px;}
+    .stickycta .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    footer{padding:24px 0 60px;color:#826f60;text-align:center;font-size:12px}
+
+    @media (min-width:520px){
+      .media{grid-template-columns:1fr 1.2fr}
+      .owner{grid-template-columns:1fr 120px}
+    }
+  </style>
+</head>
+<body>
+  <!-- ヒーロー（店舗写真 + 店名 + キャッチ + 直通ボタン） -->
+  <header class="hero">
+    <div class="hero-inner container">
+      <span class="badge">公式サイト</span>
+      <h1 class="storename">【店名】</h1>
+      <p class="catch">“日本一おいしいカフェオレ” を、毎日に。</p>
+      <div class="cta-row">
+        <a class="btn" href="tel:0000000000" aria-label="お店に電話">
+          <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1v3.5a1 1 0 01-1 1C10.07 20.82 3.18 13.93 3.18 5a1 1 0 011-1H7.7a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.24 1.01l-2.4 2.2z"/></svg>
+          電話する
+        </a>
+        <a class="btn outline" href="#access" aria-label="地図へ">地図を見る</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- タブメニュー（ワイヤーフレームの NEW / MENU / PHOTO / REVIEW） -->
+  <nav class="tabnav" aria-label="セクションナビゲーション">
+    <div class="tabnav-inner container">
+      <a href="#news">NEW</a>
+      <a href="#menu">MENU</a>
+      <a href="#photos">PHOTO</a>
+      <a href="#reviews">REVIEW</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- カフェオレへのこだわり（左：画像 / 右：テキスト） -->
+    <section id="story" aria-labelledby="story-title">
+      <div class="card media">
+        <img src="https://images.unsplash.com/photo-1512568400610-62da28bc8a13?q=80&w=1200&auto=format&fit=crop" alt="カフェオレの写真（差し替え推奨）">
+        <div>
+          <div class="kebab">CAFÉ AU LAIT</div>
+          <h2 id="story-title">カフェオレへのこだわり</h2>
+          <p>当店のカフェオレは、深煎り豆のチョコレート香と、北海道ミルクのまろやかさが出会う一杯。抽出30秒以内のエスプレッソに、低温スチームで甘みを引き出したミルクを合わせ、温度 <strong>62–65℃</strong> にきっちり仕上げます。</p>
+          <p>砂糖なしでも甘い “ごほうびの一口”。その驚きを、毎日同じクオリティでお届けします。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- お知らせ（NEW） -->
+    <section id="news" aria-labelledby="news-title">
+      <div class="card">
+        <h2 id="news-title">お知らせ</h2>
+        <ul class="newslist">
+          <li><time datetime="2025-09-01">09/01</time><div>季節限定「塩キャラメル カフェオレ」スタート <span class="tag">NEW</span></div></li>
+          <li><time datetime="2025-08-20">08/20</time><div>営業時間を <b>10:00–19:00</b> に変更しました</div></li>
+          <li><time datetime="2025-08-10">08/10</time><div>雑誌『COFFEE LOVERS』で紹介されました</div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- メニュー（MENU） -->
+    <section id="menu" aria-labelledby="menu-title">
+      <div class="card">
+        <h2 id="menu-title">メニュー（抜粋）</h2>
+        <div class="menu-grid">
+          <div class="menu-item">
+            <h3>カフェオレ（Hot）</h3>
+            <p>S <span class="price">¥420</span>・M <span class="price">¥480</span>・L <span class="price">¥540</span></p>
+          </div>
+          <div class="menu-item">
+            <h3>アイス カフェオレ</h3>
+            <p>R <span class="price">¥480</span>・L <span class="price">¥540</span></p>
+          </div>
+          <div class="menu-item">
+            <h3>ラテベース（瓶）</h3>
+            <p>ミルクで割るだけ。<span class="price">¥1,200</span></p>
+          </div>
+          <div class="menu-item">
+            <h3>焼き菓子</h3>
+            <p>日替わりフィナンシェほか <span class="price">¥280〜</span></p>
+          </div>
+        </div>
+        <p style="font-size:12px;color:#6c6259;margin-top:10px">＊価格は税込み。アレルギー表示／フルメニューは店頭で。</p>
+      </div>
+    </section>
+
+    <!-- 写真（PHOTO） -->
+    <section id="photos" aria-labelledby="photos-title">
+      <div class="card">
+        <h2 id="photos-title">写真</h2>
+        <div class="gallery" aria-label="店内・商品写真">
+          <img src="https://images.unsplash.com/photo-1517705008128-361805f42e86?q=80&w=1200&auto=format&fit=crop" alt="店内の様子（差し替え推奨）">
+          <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1200&auto=format&fit=crop" alt="カフェオレと焼き菓子（差し替え推奨）">
+          <img src="https://images.unsplash.com/photo-1515443968649-65d046f393f1?q=80&w=1200&auto=format&fit=crop" alt="外観（差し替え推奨）">
+        </div>
+      </div>
+    </section>
+
+    <!-- オーナー（経歴・店の歴史 + 画像） -->
+    <section id="owner" aria-labelledby="owner-title">
+      <div class="card owner">
+        <div>
+          <h2 id="owner-title">オーナーのご紹介</h2>
+          <p><strong>【お名前】</strong> — バリスタ歴10年。フランスで出会った“牛乳がおいしいカフェオレ”を日本で再現したい。その想いから【店名】をオープンしました。</p>
+          <p>牛乳の甘さを最大限に生かす低温スチームと、シンプルなレシピにこだわっています。</p>
+          <small>Instagram: <a href="#" aria-label="Instagramへ">@your_account</a></small>
+        </div>
+        <img class="avatar" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=800&auto=format&fit=crop" alt="オーナー写真（差し替え推奨）">
+      </div>
+    </section>
+
+    <!-- アクセス（地図 + 住所/営業時間/休業日/SNS/QR） -->
+    <section id="access" aria-labelledby="access-title">
+      <div class="card">
+        <h2 id="access-title">アクセス</h2>
+        <iframe class="map" loading="lazy" allowfullscreen title="Google Map"
+          src="https://maps.google.com/maps?q=大阪駅&hl=ja&z=15&output=embed"></iframe>
+        <ul class="info">
+          <li><b>ADDRESS</b><div>〒000-0000 大阪市〇〇区〇〇 1-2-3 【店名】<br><a href="https://maps.google.com/?q=大阪駅" target="_blank" rel="noopener">Googleマップで開く</a></div></li>
+          <li><b>TEL</b><div><a href="tel:0000000000">00-0000-0000</a></div></li>
+          <li><b>OPEN</b><div>10:00 – 19:00 <span id="openLabel"></span><br><small>（L.O. 18:30）</small></div></li>
+          <li><b>定休日</b><div>火曜（祝日の場合は翌日）</div></li>
+          <li><b>SNS</b>
+            <div class="sns">
+              <a class="btn" style="padding:8px 12px;border-radius:10px" href="#" target="_blank" rel="noopener" aria-label="Instagramへ">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm10 2H7a3 3 0 00-3 3v10a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3zm-5 3.5A5.5 5.5 0 1111.5 18 5.5 5.5 0 0112 7.5zm0 2A3.5 3.5 0 1015.5 13 3.5 3.5 0 0012 9.5zM17.5 6A1.5 1.5 0 1116 7.5 1.5 1.5 0 0117.5 6z"/></svg>
+                Instagram
+              </a>
+              <div class="qr" aria-hidden="true">QR</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- レビュー（REVIEW） -->
+    <section id="reviews" aria-labelledby="reviews-title">
+      <div class="card">
+        <h2 id="reviews-title">レビュー</h2>
+        <p style="margin-top:4px">Googleマップのクチコミで高評価をいただいています。</p>
+        <div class="menu-item" style="margin-top:8px">
+          <p>「砂糖なしでこんなに甘いなんて！毎日飲みたくなるやさしいカフェオレ。」（★5）</p>
+        </div>
+        <div class="menu-item" style="margin-top:8px">
+          <p>「ミルクの甘さが主役。子どもにも安心して勧められる味。」（★5）</p>
+        </div>
+        <p style="margin-top:10px"><a class="btn outline" href="#" target="_blank" rel="noopener">Googleでレビューを見る</a></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- 下部固定CTA（電話 / 経路） -->
+  <div class="stickycta">
+    <div class="container row">
+      <a class="btn" href="tel:0000000000" aria-label="電話で問い合わせ">今すぐ電話</a>
+      <a class="btn outline" href="https://www.google.com/maps/dir/?api=1&destination=大阪駅" target="_blank" rel="noopener" aria-label="経路を表示">経路案内</a>
+    </div>
+  </div>
+
+  <footer class="container">
+    <div>© <span id="year"></span> 【店名】</div>
+  </footer>
+
+  <!-- 構造化データ（LocalBusiness） → 店名/住所/電話を後で実データに置換 -->
+  <script type="application/ld+json" id="schema">
+    {
+      "@context": "https://schema.org",
+      "@type": "CafeOrCoffeeShop",
+      "name": "【店名】",
+      "telephone": "00-0000-0000",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "大阪市〇〇区〇〇 1-2-3",
+        "postalCode": "000-0000",
+        "addressCountry": "JP"
+      },
+      "openingHours": "Mo,We,Th,Fr,Sa,Su 10:00-19:00",
+      "servesCuisine": "Coffee"
+    }
+  </script>
+
+  <script>
+    // 年表示
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // 営業中ラベル（簡易版）
+    (function(){
+      const now = new Date();
+      const day = now.getDay(); // 0=Sun
+      const hour = now.getHours() + now.getMinutes()/60;
+      const closedTuesday = (day === 2); // 火曜休
+      const open = hour >= 10 && hour < 19 && !closedTuesday;
+      const el = document.getElementById('openLabel');
+      if(!el) return;
+      el.textContent = open ? '（本日 営業中）' : '（本日 休業/営業時間外）';
+      el.style.color = open ? 'var(--ok)' : '#a65a52';
+      el.style.fontWeight = '700';
+      el.style.marginLeft = '6px';
+    })();
+
+    // スムーススクロール（iOS含む）
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(id.length===1) return; // '#'
+        const target = document.querySelector(id);
+        if(target){
+          e.preventDefault();
+          target.scrollIntoView({behavior:'smooth', block:'start'});
+        }
+      });
+    });
+  </script>
+</body>
+</html>
